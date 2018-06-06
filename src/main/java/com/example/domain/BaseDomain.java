@@ -13,7 +13,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @Getter
 @Setter
-@NoArgsConstructor
 public class BaseDomain {
     @Id
     @GenericGenerator(name = "uuid", strategy = "uuid2")

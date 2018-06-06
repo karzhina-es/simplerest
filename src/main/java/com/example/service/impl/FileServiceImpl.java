@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -17,12 +18,12 @@ public class FileServiceImpl implements FileService {
     private final Path uploadDirectory;
 
     public FileServiceImpl(@Value("${upload.files.dir}") Path uploadDirectory) {
-        this.uploadDirectory = uploadDirectory;
+        this.uploadDirectory = Objects.requireNonNull(uploadDirectory);
     }
 
     @Override
     public String saveFile(MultipartFile file) {
-        String filename = UUID.randomUUID().toString() + StringUtils.cleanPath(file.getOriginalFilename());
+        String filename = UUID.randomUUID() + StringUtils.cleanPath(file.getOriginalFilename());
 
         Path targetLocation = uploadDirectory.resolve(filename);
         try {

@@ -34,4 +34,7 @@
             <column name="picture" type="VARCHAR(512)" remarks="Name of file containing user picture in partner system"/>
         </createTable>
     </changeSet>
+    <changeSet id="3" author="Elena Karzhina">
+        <modifyDataType tableName="customers" columnName="balance" newDataType="DECIMAL(15,2)" />
+    </changeSet>
 </databaseChangeLog>

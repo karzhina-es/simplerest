@@ -1,7 +1,7 @@
 <Configuration monitorInterval="5">
     <Appenders>
-        <RollingFile name="file-log" fileName="${env:catalina.home}/logs/simplerest/simplerest.log"
-                     filePattern="${env:catalina.home}/logs/simplerest/simplerest-%d{yyyy-MM-dd-HH}-%i.log">
+        <RollingFile name="file-log" fileName="/tmp/logs/simplerest/simplerest.log"
+                     filePattern="/tmp/logs/simplerest/simplerest-%d{yyyy-MM-dd-HH}-%i.log">
             <PatternLayout pattern="%highlight{%d %-5p %logger{1}:%L - %m%n}{INFO=green}"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
@@ -20,7 +20,6 @@
         </Root>
 
         <Logger name="org.springframework" level="INFO"/>
-        <Logger name="ru.sitecab.app.server" level="TRACE"/>
         <Logger name="org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener" level="WARN"/>
     </Loggers>
 </Configuration>

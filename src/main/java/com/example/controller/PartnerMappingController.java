@@ -2,6 +2,8 @@ package com.example.controller;
 
 import com.example.domain.Customer;
 import com.example.domain.PartnerMapping;
+import com.example.dto.CustomerDto;
+import com.example.dto.PartnerMappingDto;
 import com.example.dto.ProcessPartnerMappingDto;
 import com.example.service.api.CustomerService;
 import com.example.service.api.FileService;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -32,34 +35,34 @@ public class PartnerMappingController {
 
     @Autowired
     public PartnerMappingController(PartnerMappingService partnerMappingService, CustomerService customerService, FileService fileService, AuthenticationUtils authUtils) {
-        this.partnerMappingService = partnerMappingService;
-        this.customerService = customerService;
-        this.fileService = fileService;
-        this.authUtils = authUtils;
+        this.partnerMappingService = Objects.requireNonNull(partnerMappingService);
+        this.customerService = Objects.requireNonNull(customerService);
+        this.fileService = Objects.requireNonNull(fileService);
+        this.authUtils = Objects.requireNonNull(authUtils);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public Customer getById(@PathVariable String customerId) {
-        return customerService.getCustomerById(getCustomerId(customerId)).get();
+    public Optional<CustomerDto> getById(@PathVariable String customerId) {
+        return customerService.getCustomerById(getCustomerId(customerId));
     }
 
     @RequestMapping(value = "/mappings", method = RequestMethod.GET)
-    public List<PartnerMapping> getMappingsByCustomerId(@PathVariable String customerId) {
+    public List<PartnerMappingDto> getMappingsByCustomerId(@PathVariable String customerId) {
         return partnerMappingService.getMappingsByCustomerId(getCustomerId(customerId));
     }
 
     @RequestMapping(value = "/mappings/{mappingId}", method = RequestMethod.GET)
-    public Optional<PartnerMapping> getMappingById(@PathVariable String customerId, @PathVariable String mappingId) {
+    public Optional<PartnerMappingDto> getMappingById(@PathVariable String customerId, @PathVariable String mappingId) {
         return partnerMappingService.getMappingById(mappingId);
     }
 
     @RequestMapping(value = "/mappings", method = RequestMethod.POST)
-    public PartnerMapping addMapping(@PathVariable String customerId, @RequestBody ProcessPartnerMappingDto partnerMapping) {
+    public PartnerMappingDto addMapping(@PathVariable String customerId, @RequestBody ProcessPartnerMappingDto partnerMapping) {
         return partnerMappingService.processMapping(getCustomerId(customerId), null, partnerMapping);
     }
 
     @RequestMapping(value = "/mappings/{mappingId}", method = RequestMethod.PUT)
-    public PartnerMapping updateMapping(@PathVariable String customerId, @PathVariable String mappingId, @RequestBody ProcessPartnerMappingDto partnerMapping) {
+    public PartnerMappingDto updateMapping(@PathVariable String customerId, @PathVariable String mappingId, @RequestBody ProcessPartnerMappingDto partnerMapping) {
         return partnerMappingService.processMapping(getCustomerId(customerId), mappingId, partnerMapping);
     }
 

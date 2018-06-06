@@ -1,10 +1,10 @@
 package com.example.service.api;
 
-import com.example.domain.Customer;
+import com.example.dto.CustomerDto;
 
 import java.util.Optional;
 
 public interface CustomerService {
 
-    Optional<Customer> getCustomerById(String id);
+    Optional<CustomerDto> getCustomerById(String id);
 }
