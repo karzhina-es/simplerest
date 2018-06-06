@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd" logicalFilePath="db.server.0.1.xml">
+    <preConditions>
+        <dbms type="mysql"/>
+    </preConditions>
+
+    <changeSet id="1" author="Elena Karzhina">
+        <createTable tableName="customers">
+            <column name="id" type="VARCHAR(36)" remarks="Primary ID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="login" type="VARCHAR(512)" remarks="Customer login">
+                <constraints unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(512)" remarks="Customer password"/>
+            <column name="full_name" type="VARCHAR(512)" remarks="Customer full name"/>
+            <column name="balance" type="DOUBLE" remarks="Customer account balance"/>
+            <column name="status" type="VARCHAR(64)" remarks="Customer status"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Elena Karzhina">
+        <createTable tableName="partner_mappings">
+            <column name="id" type="VARCHAR(36)" remarks="Primary ID">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="partner_id" type="VARCHAR(512)" remarks="Id of partner system"/>
+            <column name="customer_id_in_partner_system" type="VARCHAR(512)" remarks="Customer id in partner system"/>
+            <column name="full_name" type="VARCHAR(512)" remarks="Customer full name in partner system"/>
+            <column name="customer_id" type="VARCHAR(36)" remarks="Customer id"/>
+            <column name="picture" type="VARCHAR(512)" remarks="Name of file containing user picture in partner system"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
